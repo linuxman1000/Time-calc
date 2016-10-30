@@ -22,7 +22,9 @@ timecalc.py [[-s][--seconds] seconds]
             [[-o][--months] months]
             [[-y][--years] years]
 arguments:
--s, --seconds SECONDS  A positive integer to be converted to larger time units.  If there are "remaining" seconds, they'll be shown as well.
+-s, --seconds SECONDS  A positive integer to be converted to larger time units.
+If there are "remaining" seconds, they'll be shown as well.
+
 The remaining options take a positive integer that is to be converted to seconds
 -m, --minutes MINUTES
 -u, --hours HOURS
