@@ -9,7 +9,7 @@ Everything else is converted to the equivalent seconds
 ## Requirements:
 Python 3
 
-_Note: This can easily be converted to work with Python 2.x; the main difference, in this case, is the print statements._
+_Note: This can easily be converted to work with Python 2.x; the main difference, in this case, is the print statements.  See the python 2.x branch._
 
 ## Usage:
 
