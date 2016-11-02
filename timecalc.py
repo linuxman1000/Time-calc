@@ -3,25 +3,25 @@
 '''
 Written by: Mike Hauss
 
-This script accepts a whole number as a number of seconds and tells how many years, months, days,
-weeks, days, hours, minutes and seconds it is equal to.
+This script accepts a whole number as a number of seconds and tells how many years, months, days, weeks, days, hours, minutes and seconds it is equal to.
+If the argument is -m; -u; -d; -w and/or -y, tell how many seconds
 '''
 import pdb
 import argparse
 
 # Variables
-secsCalYear = 31536000  # seconds per calendar year
-secsIn30DayMonth = 2592000
-secsInWeek = 604800
-secsInDay = 86400
-secsInHour = 3600
-secsInMin = 60
-numYears = 0
-numMonths = 0
-numWeeks = 0
-numDays = 0
-numHours = 0
-numMins = 0
+yearSecs = 31536000  # seconds per calendar year
+monthSecs = 2592000  # 30 day month
+weekSecs = 604800
+daySecs = 86400
+hourSecs = 3600
+minSecs = 60
+years = 0
+months = 0
+weeks = 0
+days = 0
+hours = 0
+mins = 0
 seconds = 0 # initialize to zero (stores main input)
 secsRemain = 0
 
@@ -39,141 +39,99 @@ def compare(s):
 #    pdb.set_trace()
     x = 1
     while x == 1:
-        if s > secsCalYear:
-            calcYears(s)
-        elif s > secsIn30DayMonth:
-            calcMonths(s)
-        elif s > secsInWeek:
-            calcWeeks(s)
-        elif s > secsInDay:
-            calcDays(s)
-        elif s > secsInHour:
-            calcHours(s)
-        elif s > secsInMin:
-            calcMins(s)
-        else:
-            secsRemain = s
+        if s > yearSecs:
+            print("{} is > yearSecs")
+            years = calcYears(s)[0]
+        elif s > monthSecs:
+            print("{} is > monthSecs")
+            months = calcMonths(s)[0]
+        elif s > weekSecs:
+            print("{} is > weekSecs")
+            weeks = calcWeeks(s)[0]
+        elif s > daySecs:
+            print("{} is > daySecs")
+            days = calcDays(s)[0]
+        elif s > hourSecs:
+            h = calcHours(s)
+            hours = h[0]
+        elif s > minSecs:
+            print("{} is > minSecs")
+            mins = calcMins(s)[0]
+        elif calcMins(s)[1]:
+            print("secs")
+            seconds = calcMins(s)[1]
         x = 0
 
-'''
-This is where we determine how many seconds we're dealing with and what time frame we have.
-'''
+
+def printResults(s):
+    print("{} is:\n".format(s))
+    if years:
+        print("{} years,\n".format(years))
+    elif months:
+        print("{} months,\n".format(months))
+    elif weeks:
+        print("{} weeks,\n".format(weeks))
+    elif days:
+        print("{} days,\n".format(days))
+    elif hours:
+        print("{} hours,\n".format(hours))
+    elif mins:
+        print("{} minutes,\n".format(mins))
+    elif seconds:
+        print("{} seconds,\n".format(seconds))
 
 
 
-def printResults():
-    print("{} is:\n".format(y))
 
 
-'''
-Take input already determined to be > 1 calendar year.  There's an extra day every fourth year, so if numYears > 3,
-we'll use secsCalLeap in our calculations.  We'll then obtain both how many years we have AND the remainder.
-Subtract numYears * 
-secsCalYear=31536000  # seconds per calendar year
-from input to get the remainder in seconds.
-At this point, we'll have populated the numYears var with how many years and returned the remaining seconds.
-'''
 def calcYears(s):
-    p = s % secsCalYear
-    numYears = s - (s - p)   # population of this variable is the central point of this function
-    secsRemain = p
+    values = divmod(s,yearSecs)
+    numYears = values[0]
+    secsRemain = values[1]
+    # leap year, add a day
     if numYears > 3:
-        secsRemain += 86400     # add a day to the remaining seconds (for leap year)
-    compare(secsRemain)
+        secsRemain += 86400
+    return (numYears, secsRemain)
 
-
-'''
-Take input already determined to be > 1 month.  We'll then obtain both how many months we have AND the remainder.
-Subtract (numMonths * 2592000) from input to get the remainder in seconds.
-At this point, we'll have populated the numMonths var with how many years and returned the remaining seconds.
-'''
 #pdb.set_trace()
 def calcMonths(s):
-    secsRemain = (s % secsIn30DayMonth) 
-    numMonths = s - secsRemain
-    compare(secsRemain)
+    values = divmod(s,monthSecs)
+    numMonths = values[0]
+    secsRemain = values[1]
+    return (numMonths, secsRemain)
+    
 
 #pdb.set_trace()
-
-
-'''
-Take input already determined to be > 1 week or, 7 * 86400.  We'll then obtain both how many days we have AND the remainder.
-Subtract (numWeeks * 86400) from input to get the remainder in seconds.
-At this point, we'll have populated the numYears var with how many years and returned the remaining seconds.
-'''
 def calcWeeks(s):
-    secsRemain = (s % secsInWeek)
-    numWeeks = s/secsInWeek
-    compare(secsRemain)
+    values = divmod(s,weekSecs)
+    numWeeks = values[0]
+    secsRemain = values[1]
+    return (numWeeks, secsRemain)
 
-
-'''
-Take input already determined to be > 1 day. We'll then obtain both how many days we have AND the remainder.
-Subtract (numDays * 86400) from input to get the remainder in seconds.
-At this point, we'll have populated the numYears var with how many years and returned the remaining seconds.
-'''
 #pdb.set_trace()
 def calcDays(s):
-    numDays = s/secsInDay
-    secsRemain = s - (numDays * secsInDay) 
-    compare(secsRemain)
-   
+    values = divmod(s,daySecs)
+    numDays = values[0]
+    secsRemain = values[1]
+    return (numDays, secsRemain)  
 
-'''
-Take input already determined to be > 1 hour. We'll then obtain both how many hours we have AND the remainder.
-Subtract (numHours * 3600) from input to get the remainder in seconds.
-At this point, we'll have populated the numYears var with how many years and returned the remaining seconds.
-'''
 #pdb.set_trace()
 def calcHours(s):
-    numHours = s/secsInHour
-    secsRemain = s - (numHours * secsInHour) 
-    compare(secsRemain)
-   
+    values = divmod(s,hourSecs)
+    numHours = values[0]
+    secsRemain = values[1]
+    return (numHours, secsRemain)
 
-'''
-Take input already determined to be > 1 minute. We'll then obtain both how many minutes
-we have AND the remainder.  Subtract (numMins * 60) from input to get the remainder in seconds.
-At this point, we'll have populated the numMins var with how many minutes and returned the remaining seconds.
-'''
 #pdb.set_trace()
 def calcMins(s):
-    numMins = s/secsInMin
-    secsRemain = s - (numMins * secsInMin)
-
-
-# determine who to call based on what's set
-if args.secs:
-    compare(args.secs)
-elif args.mins:
-    calcMins(args.mins)
-elif args.hours:
-    calcHours(args.hours)
-elif args.days:
-    calcDays(args.days)
-elif args.weeks:
-    calcWeeks(args.weeks)
-elif args.months:
-    calcMonths(args.months)
-else: 
-    calcYears(args.years)
-
-x = 1
-while x == 1:
-    if numYears:
-        y = numYears
-    elif numMonths:
-        y = numMonths
-    elif numWeeks:
-        y = numWeeks
-    elif numDays:
-        y = numDays
-    elif numHours:
-        y = numHours
-    elif numMins:
-        y = numMins
+    values = divmod(s,minSecs)
+    numMins = values[0]
+    secsRemain = values[1]
+    if secsRemain > 0:
+        return (numMins, secsRemain)
     else:
-        y = secsRemain
-        x = 0
+        return numMins
 
-printResults()
+# determine who to call based on
+compare(args.secs)
+printResults(args.secs)
