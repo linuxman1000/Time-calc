@@ -22,7 +22,7 @@ weeks = 0
 days = 0
 hours = 0
 mins = 0
-seconds = 0 # initialize to zero (stores main input)
+seconds = 0 
 secsRemain = 0
 
 parser = argparse.ArgumentParser()
@@ -35,28 +35,29 @@ parser.add_argument('-o','--months', action="store", help="mOnths; must be a pos
 parser.add_argument('-y','--years', action="store", help="Year; must be a positive whole number", type=int)
 args = parser.parse_args()
 
-def compare(s):
+def compare(s):     # These vars need to be globally accessible but how?
 #    pdb.set_trace()
     x = 1
     while x == 1:
         if s > yearSecs:
-            print("{} is > yearSecs")
-            years = calcYears(s)[0]
+            print("{} is > yearSecs".format(s))
+            years = calcYears(s)
         elif s > monthSecs:
-            print("{} is > monthSecs")
-            months = calcMonths(s)[0]
+            print("{} is > monthSecs".format(s))
+            months = calcMonths(s)
         elif s > weekSecs:
-            print("{} is > weekSecs")
-            weeks = calcWeeks(s)[0]
+            print("{} is > weekSecs".format(s))
+            weeks = calcWeeks(s)
         elif s > daySecs:
-            print("{} is > daySecs")
-            days = calcDays(s)[0]
+            print("{} is > daySecs".format(s))
+            days = calcDays(s)
         elif s > hourSecs:
             h = calcHours(s)
             hours = h[0]
-        elif s > minSecs:
-            print("{} is > minSecs")
-            mins = calcMins(s)[0]
+        elif s >= minSecs:
+            print("{} is > minSecs".format(s))
+            m = calcMins(s)[0]
+            print("Minutes: %s" % m)
         elif calcMins(s)[1]:
             print("secs")
             seconds = calcMins(s)[1]
