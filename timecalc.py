@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 #!/usr/bin/env python
 
 '''
@@ -43,37 +44,43 @@ def main():   # parses input
     parser.add_argument('-y','--years', action="store",
             help="Year; must be a positive whole number", type=int)
     args = parser.parse_args()
+    global in_secs
+    in_secs = args.secs
     compare(args.secs)
+
+def sr(a):
+    compare(a)
 
 def compare(u):
     #pdb.set_trace()
+    global years, months, weeks, days, hours, mins, seconds, secs_remain
     if u > year_secs:
-        global years
         years = calc_years(u)[0]
         secs_remain = calc_years(u)[1]
+        sr(secs_remain)
     elif u > month_secs:
-        global months
         months = calc_months(u)[0]
         secs_remain = calc_months(u)[1]
+        sr(secs_remain)
     elif u > week_secs:
-        global weeks
         weeks = calc_weeks(u)[0]
         secs_remain = calc_weeks(u)[1]
+        sr(secs_remain)
     elif u > day_secs:
-        global days
         days = calc_days(u)[0]
         secs_remain = calc_days(u)[1]
+        sr(secs_remain)
     elif u > hour_secs:
-        global hours
         hours = calc_hours(u)[0]
         secs_remain = calc_hours(u)[1]
-        print "Hours: %s" % hours
+        sr(secs_remain)
     elif u >= min_secs:
-        global mins
-        mins = calc_mins(u)
+        mins = calc_mins(u)[0]
         secs_remain = calc_mins(u)[1]
+        sr(secs_remain)
     else:
         seconds = u
+
 
 # each of these is a list with remainder as [1]
 def calc_years(s):
@@ -83,24 +90,20 @@ def calc_years(s):
     # leap year, add a day
     if num_years > 3:
         remainder += 86400
-    print "Years"
     return [num_years, remainder]
 
 def calc_months(s):
     values = divmod(s,month_secs)
-    print "Months"
     return [values[0], values[1]]
 
 #pdb.set_trace()
 def calc_weeks(s):
     values = divmod(s,week_secs)
-    print "Weeks"
     return [values[0], values[1]]
 
 #pdb.set_trace()
 def calc_days(s):
     values = divmod(s,day_secs)
-    print "Days"
     return [values[0], values[1]]
 
 #pdb.set_trace()
@@ -111,8 +114,8 @@ def calc_hours(s):
 #pdb.set_trace()
 def calc_mins(s):
     values = divmod(s,min_secs)
-    print "Minutes"
     return [values[0], values[1]]
 
 if __name__ == '__main__':
     main()
+    print "%s seconds is equivalent to: \n%s Years\n%s Months\n%s Weeks\n%s Days\n%s Hours\n%s Minutes\n%s Seconds" % (in_secs, years, months, weeks, days, hours, mins, seconds)
