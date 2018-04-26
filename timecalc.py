@@ -118,34 +118,18 @@ def calc_months(s):
     values = divmod(s,month_secs)
     return [values[0], values[1]]
 
-<<<<<<< HEAD
-
-=======
->>>>>>> b7e1a8562b45d6aaec31780cba271a10a2ba9bff
 def calc_weeks(s):
     values = divmod(s,week_secs)
     return [values[0], values[1]]
 
-<<<<<<< HEAD
-
-=======
->>>>>>> b7e1a8562b45d6aaec31780cba271a10a2ba9bff
 def calc_days(s):
     values = divmod(s,day_secs)
     return [values[0], values[1]]
 
-<<<<<<< HEAD
-
-=======
->>>>>>> b7e1a8562b45d6aaec31780cba271a10a2ba9bff
 def calc_hours(s):
     values = divmod(s,hour_secs)
     return [values[0], values[1]]
 
-<<<<<<< HEAD
-
-=======
->>>>>>> b7e1a8562b45d6aaec31780cba271a10a2ba9bff
 def calc_mins(s):
     values = divmod(s,min_secs)
     return [values[0], values[1]]
