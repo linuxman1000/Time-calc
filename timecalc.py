@@ -146,7 +146,7 @@ if __name__ == '__main__':
 To Do:
 Print one statement if seconds and the other if anything else
 '''
-    if seconds:
+if seconds:
         print "%s seconds is equivalent to: \n%s Years\n%s Months\n%s Weeks\n%s Days\n%s Hours\n%s Minutes\n%s Seconds" % (in_secs, years, months, weeks, days, hours, mins, seconds)
-    if calc_secs:
+if calc_secs:
         print "%s minutes, %s hours, %s days, %s weeks, %s months, and %s years is equivalent to \n %s seconds" % (mi,h,d,w,mo,y,subtotal)
