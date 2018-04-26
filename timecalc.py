@@ -8,7 +8,6 @@ This script accepts a whole number as a number of seconds and tells how many
 years, months, days, weeks, days, hours, minutes and seconds it is equal to.
 If the argument is -m; -u; -d; -w and/or -y, tell how many seconds
 '''
-import pdb
 import argparse
 
 # Variables
@@ -119,22 +118,18 @@ def calc_months(s):
     values = divmod(s,month_secs)
     return [values[0], values[1]]
 
-#pdb.set_trace()
 def calc_weeks(s):
     values = divmod(s,week_secs)
     return [values[0], values[1]]
 
-#pdb.set_trace()
 def calc_days(s):
     values = divmod(s,day_secs)
     return [values[0], values[1]]
 
-#pdb.set_trace()
 def calc_hours(s):
     values = divmod(s,hour_secs)
     return [values[0], values[1]]
 
-#pdb.set_trace()
 def calc_mins(s):
     values = divmod(s,min_secs)
     return [values[0], values[1]]
