@@ -46,11 +46,11 @@ def main():   # parses input
     '''
     if args.mins:
         calc_secs(min_secs,args.mins)
-	global mi
+        global mi
         mi = args.mins
     if args.hours:
         calc_secs(hour_secs,args.hours)
-	global h
+        global h
         h = args.hours
     if args.days:
         calc_secs(day_secs,args.days)
