@@ -6,6 +6,9 @@ Converts seconds to bigger units (years, months, weeks, days, hours, minutes)
 -s or --seconds is converted to years, months, weeks, days, hours, minutes and remaining seconds.
 Everything else is converted to the equivalent seconds
 
+How can this be useful?
+This is useful anytime you have an amount of seconds and want to know how long ago x seconds was as many applications express time in seconds.
+
 ## Requirements:
 Python 3
 
@@ -32,4 +35,6 @@ The remaining options take a positive integer that is to be converted to seconds
 -w, --weeks WEEKS
 -o, --months MONTHS (30-day month used here)
 -y, --years YEARS (accounts for leap years for every x % 4
+
+There is still much to be done on this, so it is a work in progress.  However, feel free to use this.
 ```

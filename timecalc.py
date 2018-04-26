@@ -8,7 +8,6 @@ This script accepts a whole number as a number of seconds and tells how many
 years, months, days, weeks, days, hours, minutes and seconds it is equal to.
 If the argument is -m; -u; -d; -w and/or -y, tell how many seconds
 '''
-import pdb
 import argparse
 
 # Variables
@@ -68,14 +67,14 @@ def main():   # parses input
         calc_secs(year_secs,args.years)
         global y
         y = args.years
-    in_secs = args.secs # declared globally here so it can be referenced outside of main
+    in_secs = args.secs # declared here so it can be referenced outside of main
     compare(args.secs)
 
 def sr(a):
     compare(a)
 
 def compare(u):
-    #pdb.set_trace()
+    
     global years, months, weeks, days, hours, mins, seconds, secs_remain
     if u > year_secs:
         years = calc_years(u)[0]
@@ -119,22 +118,22 @@ def calc_months(s):
     values = divmod(s,month_secs)
     return [values[0], values[1]]
 
-#pdb.set_trace()
+
 def calc_weeks(s):
     values = divmod(s,week_secs)
     return [values[0], values[1]]
 
-#pdb.set_trace()
+
 def calc_days(s):
     values = divmod(s,day_secs)
     return [values[0], values[1]]
 
-#pdb.set_trace()
+
 def calc_hours(s):
     values = divmod(s,hour_secs)
     return [values[0], values[1]]
 
-#pdb.set_trace()
+
 def calc_mins(s):
     values = divmod(s,min_secs)
     return [values[0], values[1]]
@@ -147,6 +146,10 @@ def calc_secs(x,y):
 if __name__ == '__main__':
     main()
     message=""
+'''
+To Do:
+Print one statement if seconds and the other if anything else
+'''
     if seconds:
         print "%s seconds is equivalent to: \n%s Years\n%s Months\n%s Weeks\n%s Days\n%s Hours\n%s Minutes\n%s Seconds" % (in_secs, years, months, weeks, days, hours, mins, seconds)
     if calc_secs:
