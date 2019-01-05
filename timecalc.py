@@ -99,7 +99,7 @@ def compare(u):
         seconds = u
 
 
-# each of these is a list with remainder as [1]
+# each of these is a list with remaining time as [1]
 def calc_years(s):
     values = divmod(s,secs_in_year)     # returns a list
     num_years = values[0]            # whole number
@@ -120,11 +120,9 @@ def calc_weeks(s):
 def calc_days(s):
     values = divmod(s,secs_in_day)
     return [values[0], values[1]]
-'''
 def calc_hours(s):
     values = divmod(s,secs_in_hour)
     return [values[0], values[1]]
-'''
 def calc_mins(s):
     values = divmod(s,secs_in_min)
     return [values[0], values[1]]
@@ -141,6 +139,41 @@ To Do:
 Print one statement if seconds and the other if anything else
 '''
 if seconds:
-        print "%s seconds is equivalent to: %s Years, %s Months, %s Weeks, %s Days, %s Hours, %s Minutes, %s Seconds" % (in_secs, years, months, weeks, days, hours, mins, seconds)
+        print "%s seconds is equivalent to: " % (in_secs)
+        if years:
+	    if years > 1:
+                print "%s Years" % (years)
+            else:
+                print "%s Year" % (years)
+        if months:
+	    if months > 1:
+                print "%s Months" % (months)
+            else:
+                print "%s Month" % (months)
+	if weeks:
+	    if weeks > 1:
+                print "%s Weeks" % (weeks)
+            else:
+                print "%s Week" % (weeks)
+        if days:
+	    if days > 1:
+                print "%s Days" % (days)
+            else:
+                print "%s Day" (days)
+	if hours:
+	    if hours > 1:
+                print "%s Hours" % (hours)
+            else:
+                print "%s Hour" % (hours)
+	if mins:
+	    if mins > 1:
+                print "%s Minutes" % (mins)
+            else:
+                print "%s Minute" % (mins)
+	if seconds:
+	    if seconds > 1:
+                print "%s Seconds" % (seconds)
+            else:
+                print "%s Second" % (seconds)
 else:
         print "You didn't enter \"seconds\""
