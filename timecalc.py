@@ -11,12 +11,12 @@ If the argument is -m; -u; -d; -w and/or -y, tell how many seconds
 import argparse
 
 # Variables
-year_secs = 31536000
-month_secs = 2592000  # 30 day month
-week_secs = 604800
-day_secs = 86400
-hour_secs = 3600
-min_secs = 60
+secs_in_year = 31536000
+secs_in_month = 2592000  # 30 day month
+secs_in_week = 604800
+secs_in_day = 86400
+secs_in_hour = 3600
+secs_in_min = 60
 years, months, weeks, days, hours, mins, seconds, secs_remain = '', '','','','','','',''
 
 def main():   # parses input
@@ -45,25 +45,25 @@ def main():   # parses input
     '''
     # Calculate Values
     if args.mins:
-        calc_secs(min_secs,args.mins)
+        calc_secs(secs_in_min,args.mins)
     if args.hours:
-        calc_secs(hour_secs,args.hours)
+        calc_secs(secs_in_hour,args.hours)
     if args.days:
-        calc_secs(day_secs,args.days)
+        calc_secs(secs_in_day,args.days)
     if args.weeks:
-        calc_secs(week_secs,args.weeks)
+        calc_secs(secs_in_week,args.weeks)
     if args.months:
-        calc_secs(month_secs,args.months)
+        calc_secs(secs_in_month,args.months)
     if args.years:
-        calc_secs(year_secs,args.years)
+        calc_secs(secs_in_year,args.years)
     if args.secs:
         in_secs = args.secs # declared here so it can be referenced outside of main
     compare(args.secs)
 
 def compare(u):
     global years, months, weeks, days, hours, mins, seconds, secs_remain
-    if u > year_secs:
-	    values = divmod(s,year_secs)     # returns a list
+    if u > secs_in_year:
+	    values = divmod(s,secs_in_year)     # returns a list
 	    years = values[0]            # whole number
 	    secs_remain = values[1]          # remainder
 	    # leap year, add a day
@@ -72,26 +72,26 @@ def compare(u):
             years = calc_years(u)[0]
             secs_remain = calc_years(u)[1]
             compare(secs_remain)
-    elif u > month_secs:
+    elif u > secs_in_month:
         months = calc_months(u)[0]
         secs_remain = calc_months(u)[1]
         compare(secs_remain)
-    elif u > week_secs:
+    elif u > secs_in_week:
         weeks = calc_weeks(u)[0]
         secs_remain = calc_weeks(u)[1]
         compare(secs_remain)
-    elif u > day_secs:
+    elif u > secs_in_day:
         days = calc_days(u)[0]
         secs_remain = calc_days(u)[1]
         compare(secs_remain)
-    elif u > hour_secs:
-        values = divmod(u,hour_secs)
+    elif u > secs_in_hour:
+        values = divmod(u,secs_in_hour)
         hours = values[0]
 	secs_remain = values[1]
         #hours = calc_hours(u)[0]
         #secs_remain = calc_hours(u)[1]
         compare(secs_remain)
-    elif u >= min_secs:
+    elif u >= secs_in_min:
         mins = calc_mins(u)[0]
         secs_remain = calc_mins(u)[1]
         compare(secs_remain)
@@ -101,7 +101,7 @@ def compare(u):
 
 # each of these is a list with remainder as [1]
 def calc_years(s):
-    values = divmod(s,year_secs)     # returns a list
+    values = divmod(s,secs_in_year)     # returns a list
     num_years = values[0]            # whole number
     remainder = values[1]          # remainder
     # leap year, add a day
@@ -110,23 +110,23 @@ def calc_years(s):
     return [num_years, remainder]
 
 def calc_months(s):
-    values = divmod(s,month_secs)
+    values = divmod(s,secs_in_month)
     return [values[0], values[1]]
 
 def calc_weeks(s):
-    values = divmod(s,week_secs)
+    values = divmod(s,secs_in_week)
     return [values[0], values[1]]
 
 def calc_days(s):
-    values = divmod(s,day_secs)
+    values = divmod(s,secs_in_day)
     return [values[0], values[1]]
 '''
 def calc_hours(s):
-    values = divmod(s,hour_secs)
+    values = divmod(s,secs_in_hour)
     return [values[0], values[1]]
 '''
 def calc_mins(s):
-    values = divmod(s,min_secs)
+    values = divmod(s,secs_in_min)
     return [values[0], values[1]]
 
 def calc_secs(x,y):
