@@ -161,7 +161,7 @@ if days:
     if days > 1:
         print "%s Days" % (days)
     else:
-        print "%s Day" (days)
+        print "%s Day" % (days)
 if hours:
     if hours > 1:
         print "%s Hours" % (hours)
