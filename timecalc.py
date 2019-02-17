@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 '''
@@ -20,7 +20,9 @@ secs_in_min = 60
 
 # This just initializes everyone to null
 years, months, weeks, days, hours, mins, seconds, secs_remain, subtotal = '','','','','','','','',''
-
+'''
+This is where the arguments are parsed
+'''
 def main():   # parses input
     # Take input
     parser = argparse.ArgumentParser()
@@ -42,10 +44,11 @@ def main():   # parses input
     global in_secs # how many seconds we entered on CLI
 
     '''
-    If we passed (an) amount(s) of time other than seconds, find out
-    which one(s) and call the appropriate function(s)
+    If we passed (an) amount(s) of time other than seconds, find out which one(s) and
+    call the appropriate function(s)
     '''
     # Calculate Values
+    subtotal = 0
     if args.mins:
         subtotal += calc_secs(secs_in_min,args.mins)
     if args.hours:
@@ -62,18 +65,19 @@ def main():   # parses input
         in_secs = args.secs # declared here so it can be referenced outside of main
     compare(args.secs)
 
+# Uses recursion
 def compare(u):
     global years, months, weeks, days, hours, mins, seconds, secs_remain
     if u > secs_in_year:
-	    values = divmod(u,secs_in_year)     # returns a list
-	    years = values[0]            # whole number
-	    secs_remain = values[1]          # remainder
+        values = divmod(u,secs_in_year)     # returns a list
+        years = values[0]            # whole number
+        secs_remain = values[1]          # remainder
 	    # leap year, add a day
-	    if years > 3:
-		secs_remain += 86400
-            years = calc_years(u)[0]
-            secs_remain = calc_years(u)[1]
-            compare(secs_remain)
+        if years > 3:
+            secs_remain += 86400
+        years = calc_years(u)[0]
+        secs_remain = calc_years(u)[1]
+        compare(secs_remain)
     elif u > secs_in_month:
         months = calc_months(u)[0]
         secs_remain = calc_months(u)[1]
@@ -89,7 +93,7 @@ def compare(u):
     elif u > secs_in_hour:
         values = divmod(u,secs_in_hour)
         hours = values[0]
-	secs_remain = values[1]
+        secs_remain = values[1]
         #hours = calc_hours(u)[0]
         #secs_remain = calc_hours(u)[1]
         compare(secs_remain)
@@ -136,51 +140,35 @@ def calc_secs(x,y):
 
 if __name__ == '__main__':
     main()
+
 '''
-To Do:
-Print one statement if seconds and the other if anything else
+print("%s Years" % (years)) if years > 1 else print("%s Year" % (years))
 '''
 if seconds:
-   print "%s seconds is equivalent to: " % (in_secs)
+   print("%s seconds is equivalent to: " % (in_secs))
 if years:
     if years > 1:
-        print "%s Years" % (years)
-    else:
-        print "%s Year" % (years)
+        print("%s Years" % (years)) if years > 1 else print("%s Year" % (years))
 if months:
     if months > 1:
-        print "%s Months" % (months)
-    else:
-        print "%s Month" % (months)
+        print("%s Months" % (months)) if months > 1 else print("%s Month" % (months))
 if weeks:
     if weeks > 1:
-        print "%s Weeks" % (weeks)
-    else:
-        print "%s Week" % (weeks)
+        print("%s Weeks" % (weeks)) if weeks > 1 else print("%s Week" % (weeks))
 if days:
     if days > 1:
-        print "%s Days" % (days)
-    else:
-        print "%s Day" % (days)
+        print("%s Days" % (days)) if days > 1 else print("%s Day" % (days))
 if hours:
     if hours > 1:
-        print "%s Hours" % (hours)
-    else:
-        print "%s Hour" % (hours)
+        print("%s Hours" % (hours)) if hours > 1 else print("%s Hour" % (hours))
 if mins:
-    if mins > 1:
-        print "%s Minutes" % (mins)
-    else:
-        print "%s Minute" % (mins)
+        print("%s Minutes" % (mins)) if mins > 1 else print("%s Minute" % (mins))
 if seconds:
-    if seconds > 1:
-        print "%s Seconds" % (seconds)
-    else:
-        print "%s Second" % (seconds)
+        print("%s Seconds" % (seconds)) if seconds > 1 else print("%s Second" % (seconds))
 elif args.year or args.month or args.week or args.day or args.hour:
     if args.year > 1:
-        print "%s years"
+        print("%s years")
     elif args.year:
-        print "%s year"
+        print("%s year")
     else:
-	print "You didn't enter \"seconds\""
+        print("You didn't enter \"seconds\"")
