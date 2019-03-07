@@ -37,10 +37,12 @@ def main():   # parses input
     # o = args.months
     # y = args.years
     compare(s)
-# variables
-t = {} # dictionary that will hold timelabel:value pairs
+
+# dictionary that will hold timelabel:value pairs
+t = {} 
 print(t)
 
+# compare inputted time to each unit
 def compare(u):
     global t
     secs_in_year = 31556952
@@ -83,6 +85,7 @@ def compare(u):
 if __name__ == '__main__':
     main()
 
+# print the output
 print("{0} seconds is equivalent to: \n".format(s))
 for unit,value in t.items():
     print("{} {}".format(value, unit))
