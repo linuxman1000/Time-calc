@@ -9,6 +9,7 @@ years, months, days, weeks, days, hours, minutes and seconds it is equal to.
 If the argument is -m; -u; -d; -w and/or -y, tell how many seconds
 '''
 import argparse
+from datetime import date, time, timedelta, datetime
 
 def main():   # parses input
     # Take input
@@ -28,31 +29,54 @@ def main():   # parses input
     parser.add_argument('-y','--years', action="store",
             help="Year; must be a positive whole number", type=int)
     args = parser.parse_args()
-    global s
     s = args.secs
-    # m = args.mins
-    # u = args.hours
-    # d = args.days
-    # w = args.weeks
-    # o = args.months
-    # y = args.years
-    compare(s)
+    m = args.mins
+    u = args.hours
+    d = args.days
+    w = args.weeks
+    o = args.months
+    y = args.years
+    compare(s,m,u,d,w,o,y)
+    # Print results at end
 
-# dictionary that will hold timelabel:value pairs
-t = {} 
-print(t)
-
+def compare(s,m,u,d,w,o,y):
+    # Syntax: datetime.timedelta(days=0, seconds=0, microseconds=0, milliseconds=0, minutes=0, hours=0, weeks=0)
+    if s is None:
+        s = 0
+    if m is None:
+        m = 0
+    if u is None:
+        u = 0
+    if d is None:
+        d = 0
+    if w is None:
+        w = 0
+    if o is None:
+        o = 0
+    if y is None:
+        y = 0
+    #print(s,m,u,d,w,o,y)
+    #print("{country}: {capital}".format(country=c, capital=capital_country[c]))
+    print("Seconds: {a}, Minutes: {b}, Hours: {c}, Days: {x}, Weeks: {e}, Months: {f} Years: {g}".format(a=s,b=m,c=u,x=d,e=w,f=o,g=y))
 # compare inputted time to each unit
+'''
 def compare(u):
-    global t
-    secs_in_year = 31556952
-    secs_in_month = 2629746
-    secs_in_week = 604800
-    secs_in_day = 86400
-    secs_in_hour = 3600
-    secs_in_min = 60
-    if u >= secs_in_year:
-        values = divmod(u,secs_in_year)
+    y = timedelta(days=365)
+    year_secs = y.total_seconds()
+    m = timedelta(days=30)
+    month_secs = m.total_seconds()
+    w = timedelta(days=7)
+    week_secs = w.total_seconds()
+    d = timedelta(days=1)
+    day_secs = d.total_seconds()
+    h = timedelta(hours=1)
+    hour_secs = h.total_seconds()
+    i = timedelta(mins=1)
+    min_secs = i.total_seconds()
+    
+   
+    if u >= year_secs:
+        values = divmod(u,year_secs)
         t['years'] = values[0]
         secs_remain = values[1]
         # leap year, add a day
@@ -81,11 +105,6 @@ def compare(u):
         compare(values[1])
     else:
         t['secs'] = u
-
+'''
 if __name__ == '__main__':
     main()
-
-# print the output
-print("{0} seconds is equivalent to: \n".format(s))
-for unit,value in t.items():
-    print("{} {}".format(value, unit))
