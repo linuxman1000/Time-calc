@@ -1,4 +1,4 @@
-# timecalc.py
+# time_calculate.py
 
 Written By: Mike Hauss (mikehauss at gmail dot com)
 
