@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-# This is an application which will take a number
-# of seconds as an argument and will calculate how
-# many years, months, weeks, days, hours, minutes and
-# seconds that the seconds entered is equivalent to
-
+"""
+This is an application which will take a number of seconds as an argument and 
+will calculate how many years, months, weeks, days, hours, minutes and seconds
+that the seconds entered is equivalent to
+"""
 import argparse
 import logging
 
@@ -20,6 +20,9 @@ logging.basicConfig(format='%(levelname)s:%(message)s', filename='example.log', 
 
 
 def main():
+    """
+    This is where the application begins executing
+    """
     parser = argparse.ArgumentParser(description='Parse the arguments')
     parser.add_argument('-s', '--secs', action="store", help="Seconds; must be a positive whole number", type=int)
     # parser.add_argument('-m','--minutes', action="store",
@@ -47,8 +50,22 @@ def main():
     compare(s)
 
 def calc_leap_year_days(t):
-    # This gets called when the years is a multiple of 4 (x % 4 == 0)
-    # t is years (4, 8, 12, 16, etc.)
+    """
+    This takes one argument, t and gets called when years > 3.
+    Therefore, if the argument is 4, 5, 6, 7, 8, 9... the output is how
+    many times 4 divides into t, ignoring the remainder.
+    Example:
+    1) t = 11
+       11/4 = 2 (remainder 3 ignored)
+
+    2) t = 12
+       12/4 = 3 (remainder 0 ignored)
+
+    It contains a sub-function called bool_t that takes an argument, boo.
+    The job of this function is to set the value of leap_yr_bool to True.
+    This exists mainly for the print_output() function.
+
+    """
     def bool_t(boo): # to set leap_yr_bool a couple of lines down
         boo = True
         return boo
@@ -62,6 +79,17 @@ def calc_leap_year_days(t):
     return v
 
 def compare(z):
+    """
+    This function does the actual work of computing how much of each period
+    an amount of seconds is.  It takes one argument, z (seconds) and is called
+    by the parser above.  It checks the value against seconds in a year, month,
+    week, day, hour and minute.  It uses divmod to compute out each value; it
+    then passes each "remainder" back into itself until it gets down to the
+    lowest value, seconds.
+    It computes the leap year, which happens when years > 3, by calling the
+    calp_leap_year_days function when years > 3.  Each iteration populates
+    the t{} dictionary with keys and values of each respective time and value.
+    """
     # The value being passed in is at least what unit?
     secs_in_year = 31556952
     secs_in_month = 2629746
@@ -103,6 +131,9 @@ def compare(z):
         t['s'] = z
 
 def print_output():
+    """
+    This prints the output of the t{} dictionary
+    """
     if leap_yr_bool and t['y']:
         print(f"Years: {t['y']} (Leap Years: {leap_years})")
     if t['y'] and not leap_yr_bool:
