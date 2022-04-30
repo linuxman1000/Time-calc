@@ -16,14 +16,9 @@ _Notes:_
 
 _1. This program is designed to be used on a CLI._
 
-_2. This can easily be converted to work with Python 2.x; the main difference, in this case, is the print statements.  See the python 2.x branch._
-
 ## Usage:
-(-s is the only option available at this time.  The other options will become available as the code is written.)
 ```
 time_calculator.py
-
-## Example:
 
 arguments: None
 The script will prompt with how many seconds
