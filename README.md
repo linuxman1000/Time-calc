@@ -21,14 +21,12 @@ _2. This can easily be converted to work with Python 2.x; the main difference, i
 ## Usage:
 (-s is the only option available at this time.  The other options will become available as the code is written.)
 ```
-time_calculator.py [[-s][--seconds] seconds]
+time_calculator.py
 
 ## Example:
 
-arguments:
--s, --seconds SECONDS  A positive integer to be converted to larger time units.
-If there are "remaining" seconds, they'll be shown as well.
-
+arguments: None
+The script will prompt with how many seconds
 
 There is still much to be done on this, so it is a work in progress.  However, feel free to use this.
 ```
