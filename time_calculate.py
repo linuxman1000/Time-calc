@@ -6,48 +6,35 @@ This is an application which will take a number of seconds as an argument and
 will calculate how many years, months, weeks, days, hours, minutes and seconds
 that the seconds entered is equivalent to
 """
-import argparse
 import logging
 
 # Variables
-years, months, weeks, days, hours, minutes, seconds, leap_yrs = 0, 0, 0, 0, 0, 0, 0, 0
-t = {"y":0, "m":0, "w":0, "d":0, "h":0, "i":0, "s":0}
-values = []
+s, years, months, weeks, days, hours, minutes, seconds, leap_yrs = 0, 0, 0, 0, 0, 0, 0, 0, 0
 leap_yr_bool = False
+values = []
+t = {"years":0, "months":0, "weeks":0, "days":0, "hours":0, "minutes":0, "seconds":0}
 
 # Set up logging
-logging.basicConfig(format='%(levelname)s:%(message)s', filename='example.log', level=logging.DEBUG)
-
+logging.basicConfig(format='%(levelname)s:%(message)s', filename='timecalc.log', level=logging.DEBUG)
+logger = logging.getLogger()
 
 def main():
     """
     This is where the application begins executing
     """
-    parser = argparse.ArgumentParser(description='Parse the arguments')
-    parser.add_argument('-s', '--secs', action="store", help="Seconds; must be a positive whole number", type=int)
-    # parser.add_argument('-m','--minutes', action="store",
-    #        help="Minutes; must be a positive whole number", type=int)
-    # parser.add_argument('-u','--hours', action="store",
-    #        help="hoUrs; must be a positive whole number", type=int)
-    # parser.add_argument('-d','--days', action="store",
-    #        help="Days; must be a positive whole number", type=int)
-    # parser.add_argument('-w','--weeks', action="store",
-    #       help="Weeks; must be a positive whole number", type=int)
-    # parser.add_argument('-o','--months', action="store",
-    #        help="mOnths; must be a positive whole number", type=int)
-    # parser.add_argument('-y','--years', action="store",
-    #        help="Year; must be a positive whole number", type=int)
-    if not parser.parse_args():
+    global s
         # Ask user for number of seconds
-        try:
-            s = input("Seconds: ")
-        finally:
-            print("I can't accept input like that, so I'm exiting now, please try again.")
-            exit(1)
-    else:
-        args = parser.parse_args()
-        s = args.secs
-    compare(s)
+    try: 
+        s = int(input("Seconds: "))
+        if s < 0:
+            raise Exception
+    except Exception as err:
+        print(f"The value {s} is invalid.")
+        logger.error(err)
+        exit(1) 
+    else:  # What to do when the try block suceeds
+        compare(s)
+
 
 def calc_leap_year_days(t):
     """
@@ -77,6 +64,9 @@ def calc_leap_year_days(t):
         global leap_years
         leap_years = int(t//4)
     return v
+        #c_to_f = lambda data: (data[0], (9/5*data[1] + 32)
+        # yields iterable that must be converted to a list
+        # list(map(c_to_f, temps)
 
 def compare(z):
     """
@@ -91,65 +81,65 @@ def compare(z):
     the t{} dictionary with keys and values of each respective time and value.
     """
     # The value being passed in is at least what unit?
-    secs_in_year = 31556952
-    secs_in_month = 2629746
-    secs_in_week = 604800
-    secs_in_day = 86400
-    secs_in_hour = 3600
-    secs_in_min = 60
-    if z >= secs_in_year:
-        values = divmod(z, secs_in_year)  # values is a tuple but be two variables
-        t['y'] = values[0]
+    years, months, weeks, days, hours, minutes = (31556952, 2629746, 604800, 86400, 3600, 60)
+    if z >= years:
+        values = divmod(z, years)  # values is a tuple but contains two variables
+        t['years'] = values[0]
         if values[0] > 3:
             calc_leap_year_days(values[0])
             r = int(values[1] + calc_leap_year_days(values[0]))
             compare(r)
         else:    
             compare(values[1])
-    elif z >= secs_in_month:
-        values = divmod(z, secs_in_month)
-        t['m'] = values[0]
+    elif z >= months:
+        values = divmod(z, months)
+        t['months'] = values[0]
         compare(values[1])
-    elif z >= secs_in_week:
-        values = divmod(z, secs_in_week)
-        t['w'] = values[0]
+    elif z >= weeks:
+        values = divmod(z, weeks)
+        t['weeks'] = values[0]
         compare(values[1])
-    elif z >= secs_in_day:
-        values = divmod(z, secs_in_day)
-        t['d'] = values[0]
+    elif z >= days:
+        values = divmod(z, days)
+        t['days'] = values[0]
         compare(values[1])
-    elif z >= secs_in_hour:
-        values = divmod(z, secs_in_hour)
-        t['h'] = values[0]
+    elif z >= hours:
+        values = divmod(z, hours)
+        t['hours'] = values[0]
         compare(values[1])
-    elif z >= secs_in_min:
-        values = divmod(z, secs_in_min)
-        t['i'] = values[0]
-        t['s'] = (values[1])
+    elif z >= minutes:
+        values = divmod(z, minutes)
+        t['minutes'] = values[0]
+        t['seconds'] = (values[1])
     else:
         seconds = z
-        t['s'] = z
+        t['seconds'] = z
+    return t
 
 def print_output():
     """
     This prints the output of the t{} dictionary
     """
-    if leap_yr_bool and t['y']:
-        print(f"Years: {t['y']} (Leap Years: {leap_years})")
-    if t['y'] and not leap_yr_bool:
-        print(f"Years: {t['y']}")
-    if t['m']:
-        print(f"Months: {t['m']}")
-    if t['w']:
-        print(f"Weeks: {t['w']}")
-    if t['d']:
-        print(f"Days: {t['d']}")
-    if t['h']:
-        print(f"Hours: {t['h']}")
-    if t['i']:
-        print(f"Minutes: {t['i']}")
-    if t['s']:
-        print(f"Seconds: {t['s']}")
+    i = compare(s)
+    result = ""
+    if i['years']:
+      result = f"{i['years']} years, "
+    if i['months']:
+      result = result + f"{i['months']} months, "
+    if i['weeks']: 
+      result = result + f"{i['weeks']} weeks, "
+    if i['days']:
+      result = result + f"{i['days']} days, "
+    if i['hours']:
+      result = result + f"{i['hours']} hours, "
+    if i['minutes']:
+      result = result + f"{i['minutes']} minutes, "
+      result = result + f"{i['seconds']} seconds. "
+    else:
+      result = result + f"{i['seconds']} seconds. "
+    print(f"{s} seconds is: {result}")
+
+
 
 if __name__ == '__main__':
     main()
