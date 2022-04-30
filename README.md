@@ -1,4 +1,4 @@
-# time_calculator.py
+# time_calculate.py
 
 Written By: Mike Hauss (mikehauss at gmail dot com)
 
@@ -18,7 +18,7 @@ _1. This program is designed to be used on a CLI._
 
 ## Usage:
 ```
-time_calculator.py
+time_calculate.py
 
 arguments: None
 The script will prompt with how many seconds
