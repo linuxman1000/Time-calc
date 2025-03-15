@@ -133,10 +133,11 @@ def print_output():
     if i['hours']:
       result = result + f"{i['hours']} hours, "
     if i['minutes']:
-      result = result + f"{i['minutes']} minutes, "
-      result = result + f"{i['seconds']} seconds. "
-    else:
-      result = result + f"{i['seconds']} seconds. "
+      result = result + f"{i['minutes']} minutes "
+    if i['seconds']:
+      result = result + f"and {i['seconds']} seconds. "
+ #   else:
+  #      result = result + f"{i['seconds']} seconds. "
     print(f"{s} seconds is: {result}")
 
 
